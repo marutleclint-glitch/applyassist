@@ -43,7 +43,7 @@ const Header = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const menuItems = [
-    { text: 'Dashboard', icon: <DashboardIcon />, path: '/' },
+    { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
     { text: 'Applications', icon: <WorkIcon />, path: '/applications' },
     { text: 'Services', icon: <DescriptionIcon />, path: '/services' },
     { text: 'Chat', icon: <ChatIcon />, path: '/chat' },

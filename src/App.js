@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Header from './components/Header';
+import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import Applications from './pages/Applications';
 import Resumes from './pages/Resumes';
@@ -65,12 +66,13 @@ function App() {
               <div className="content">
                 <Routes>
                   {/* Public Routes */}
+                  <Route path="/" element={<Landing />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/verify-email" element={<VerifyEmail />} />
                   
                   {/* Protected Routes */}
-                  <Route path="/" element={
+                  <Route path="/dashboard" element={
                     <PrivateRoute>
                       <Dashboard />
                     </PrivateRoute>
