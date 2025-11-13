@@ -132,7 +132,31 @@ const localDb = {
   }
 };
 
-// Initialize local storage database
-const localDbInstance = localDb.init();
+// Detect whether localStorage is available (e.g., Netlify build runs in Node)
+const hasLocalStorage = typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
+
+// Initialize local storage database with environment guard
+const localDbInstance = (function initLocalDb() {
+  if (!hasLocalStorage) {
+    // Fallback to in-memory store to avoid build-time errors
+    localDb.collections = {
+      users: [],
+      orders: [],
+      chats: [],
+      files: []
+    };
+    return localDb;
+  }
+  return localDb.init();
+})();
+
+// Patch localDb.save to be no-op when localStorage is unavailable
+const originalSave = localDb.save.bind(localDb);
+localDb.save = function () {
+  if (!hasLocalStorage) {
+    return this;
+  }
+  return originalSave();
+};
 
 export { auth, db, storage, useLocalStorage, localDbInstance as localDb };
