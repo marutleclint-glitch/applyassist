@@ -27,6 +27,12 @@ A job application tracking tool to help you organize your job search process.
 
 You can deploy the already-built production files in `build/` without any backend.
 
+### Continuous Deployment (Netlify)
+
+- This site is linked to Netlify CI/CD.
+- Production URL: https://applyassist.netlify.app
+- Builds run automatically on pushes to `main` using `npm run build` and publish `build/`.
+
 - Netlify (fastest)
   - Drag-and-drop: open `https://app.netlify.com/drop`, upload the `build` folder (or `build.zip`). Netlify will give you a live URL instantly.
   - CLI (requires login):
