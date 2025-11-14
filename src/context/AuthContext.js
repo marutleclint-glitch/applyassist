@@ -393,21 +393,8 @@ export const AuthProvider = ({ children }) => {
           setCurrentUser(null);
         }
       } else {
-        // Auto-login as admin in local dev mode
-        const adminDoc = localDb.collection('users').where('email', '==', 'marutleclint@gmail.com').get().docs?.[0];
-        if (adminDoc) {
-          const data = adminDoc.data();
-          const adminUser = {
-            uid: data.uid || adminDoc.id,
-            email: data.email,
-            displayName: data.displayName || data.name,
-            role: data.role
-          };
-          localStorage.setItem('applyAssistMockCurrentUser', JSON.stringify(adminUser));
-          setCurrentUser(adminUser);
-        } else {
-          setCurrentUser(null);
-        }
+        // Disable any automatic admin login in production/local mode; require explicit login
+        setCurrentUser(null);
       }
       setLoading(false);
       return () => {};
