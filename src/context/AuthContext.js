@@ -387,7 +387,13 @@ export const AuthProvider = ({ children }) => {
       if (saved) {
         try {
           const user = JSON.parse(saved);
-          setCurrentUser(user);
+          // Invalidate any legacy auto-login of the seeded admin account
+          if (user && user.email === 'marutleclint@gmail.com') {
+            localStorage.removeItem('applyAssistMockCurrentUser');
+            setCurrentUser(null);
+          } else {
+            setCurrentUser(user);
+          }
         } catch (e) {
           localStorage.removeItem('applyAssistMockCurrentUser');
           setCurrentUser(null);
